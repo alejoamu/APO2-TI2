@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.DateFormatException;
+import exceptions.IncompleteDataException;
 import exceptions.NegativeNumberException;
 import org.junit.Test;
 
@@ -72,7 +73,9 @@ public class OrderListTest {
         setupStage3();
 
         // Act - Assert
-        assertEquals(orderList.searchOrder(1, ""), "the order doesn't exist in the list");
+        assertThrows(IncompleteDataException.class, () -> {
+            orderList.searchOrder(1, "");
+        });
     }
 
     @Test
