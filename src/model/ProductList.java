@@ -93,23 +93,45 @@ public class ProductList {
     }
 
     public Product searchProductByName(String nameProduct) {
-        return null;
+        // Sort by name ascending
+        Comparator<Product> byName = (p1, p2) -> p1.getProductName().compareToIgnoreCase(p2.getProductName());
+        products.sort(byName);
+        // Search for the product by its name
+        int index = binarySearch.search(products, byName, new Product(nameProduct, "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE), 0, products.size() - 1);
+        if (index == -1) return null;
+        else return products.get(index);
     }
 
     public ArrayList<Product> searchProductByPrice(double price) {
-        return null;
+        // Sort by price ascending
+        Comparator<Product> byPrice = (p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice());
+        products.sort(byPrice);
+        // Search for products with the specified price
+        return binarySearch.searchObjectsByProperty(products, byPrice, new Product("---", "---", price, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE));
     }
 
     public ArrayList<Product> searchProductByCategory(Category category) {
-        return null;
+        // Sort by category ascending
+        Comparator<Product> byCategory = (p1, p2) -> p1.getCategory().compareTo(p2.getCategory());
+        products.sort(byCategory);
+        // Search for products with the specified category
+        return binarySearch.searchObjectsByProperty(products, byCategory, new Product("---", "---", Double.MAX_VALUE, Integer.MAX_VALUE, category, Integer.MAX_VALUE));
     }
 
     public ArrayList<Product> searchProductByPurchasedNumber(int purchasedNumber) {
-        return null;
+        // Sort by purchased number ascending
+        Comparator<Product> byPurchasedNumber = (p1, p2) -> Integer.compare(p1.getPurchasedNumber(), p2.getPurchasedNumber());
+        products.sort(byPurchasedNumber);
+        // Search for products with the specified purchased number
+        return binarySearch.searchObjectsByProperty(products, byPurchasedNumber, new Product("---", "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, purchasedNumber));
     }
 
     public ArrayList<Product> searchProductByQuantityAvailable(int quantityAvailable) {
-        return null;
+        // Sort by quantity available ascending
+        Comparator<Product> byQuantityAvailable = (p1, p2) -> Integer.compare(p1.getQuantityAvailable(), p2.getQuantityAvailable());
+        products.sort(byQuantityAvailable);
+        // Search for products within the specified quantity available range using binary search
+        return binarySearch.searchObjectsByProperty(products, byQuantityAvailable, new Product("---", "---", Double.MAX_VALUE, quantityAvailable, Category.BOOKS, Integer.MAX_VALUE));
     }
 
     public String searchProduct(int option, String minData, String maxData, int sortingType, int sortingVariable) {
