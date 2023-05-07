@@ -55,7 +55,7 @@ public class ProductTest {
         product.subtractQuantityAvailable(4);
 
         //Assert
-        assertEquals(product.getQuantityAvailable(), 1);
+        assertEquals(product.getQuantityAvailable(), 0);
     }
 
     @Test
