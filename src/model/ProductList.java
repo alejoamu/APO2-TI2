@@ -45,7 +45,51 @@ public class ProductList {
     }
 
     public String searchProduct(int option, String data, int sortingType, int sortingVariable) {
-        return null;
+        StringBuilder msg = new StringBuilder();
+        switch (option) {
+            case 1:
+                Product product = searchProductByName(data);
+                if (product != null)
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", product.getProductName(), product.getDescription(), product.getPrice(), product.getQuantityAvailable(), product.getCategory(), product.getPurchasedNumber())).append("\n");
+                break;
+            case 2:
+                double price;
+                try {
+                    price = Double.parseDouble(data);
+                } catch (NumberFormatException ex) {
+                    throw new IncompleteDataException();
+                }
+                ArrayList<Product> productsFoundPrice = searchProductByPrice(price);
+                sortingResults(productsFoundPrice, sortingType, sortingVariable);
+                for (Product p : productsFoundPrice) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+            case 3:
+                ArrayList<Product> productsFoundCategory = searchProductByCategory(Category.values()[Integer.parseInt(data)]);
+                sortingResults(productsFoundCategory, sortingType, sortingVariable);
+                for (Product p : productsFoundCategory) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+            case 4:
+                int purchasedNumber;
+                try {
+                    purchasedNumber = Integer.parseInt(data);
+                } catch (NumberFormatException ex) {
+                    throw new IncompleteDataException();
+                }
+                ArrayList<Product> productsFoundPurchasedNumber = searchProductByPurchasedNumber(purchasedNumber);
+                sortingResults(productsFoundPurchasedNumber, sortingType, sortingVariable);
+                for (Product p : productsFoundPurchasedNumber) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+        }
+        if (msg.length() == 0) {
+            return Color.BOLD + Color.YELLOW + "              NO PRODUCT HAS THAT CHARACTERISTIC               \n" + Color.RESET;
+        }
+        return msg.toString();
     }
 
     public Product searchProductByName(String nameProduct) {
