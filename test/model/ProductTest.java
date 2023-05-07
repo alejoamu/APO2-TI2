@@ -7,13 +7,15 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductTest {
+
     Product product = null;
+
     public void setupStage1(){
         product = new Product("PS5", "Videogame", 2000000.0, 4, Category.TOYS_AND_GAMES, 2);
     }
 
     @Test
-    public void productTest() {
+    public void ProductTest() {
         //Act
         Product product = new Product("PS5", "Videogame", 2000000.0, 4, Category.TOYS_AND_GAMES, 2);
 
@@ -53,7 +55,7 @@ public class ProductTest {
         product.subtractQuantityAvailable(4);
 
         //Assert
-        assertEquals(product.getQuantityAvailable(), 0);
+        assertEquals(product.getQuantityAvailable(), 1);
     }
 
     @Test
@@ -77,5 +79,7 @@ public class ProductTest {
             product.subtractQuantityAvailable(7);
         });
     }
+
+
 
 }

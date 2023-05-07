@@ -1,5 +1,11 @@
 package model;
 
+import color.Color;
+import exceptions.DateFormatException;
+import exceptions.IncompleteDataException;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 public class Controller {
 
@@ -10,27 +16,35 @@ public class Controller {
         return orderList;
     }
 
-    public void setOrderList(OrderList orderList) {
-        this.orderList = orderList;
-    }
-
     public ProductList getProductList() {
         return productList;
     }
 
-    public void setProductList(ProductList productList) {
-        this.productList = productList;
-    }
-
     public String getCategory() {
+        return getCategory();
+    }
+
+    public void addProduct(String[] data) throws IOException {
+
+    }
+
+    public void changeProductQuantity(String product, int quantity) throws IOException {
+
+    }
+
+    public void addOrder(String[] data) throws IOException {
+
+    }
+
+    public String searchProduct(int option, String data, int sortingType, int sortingVariable) {
         return null;
     }
 
-    public String searchProduct(int option, String data) {
+    public String searchProduct(int option, String minData, String maxData, int sortingType, int sortingVariable) {
         return null;
     }
 
-    public String searchOrder(int option, String data) {
+    public String searchOrder(int option, String data, int sortingType, int sortingVariable) {
         return null;
     }
 }

@@ -1,6 +1,10 @@
 package model;
 
+import exceptions.IncompleteDataException;
+import exceptions.NegativeNumberException;
+
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Order {
 
@@ -11,6 +15,9 @@ public class Order {
 
     public Order(String buyerName, String productsOrder, double totalPrice, LocalDate date) {
 
+    }
+
+    public Order(String santiago, String[] products1, String[] productsQuantity, double i, LocalDate date) {
     }
 
     @Override

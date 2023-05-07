@@ -1,5 +1,9 @@
 package model;
 
+import exceptions.IncompleteDataException;
+import exceptions.NegativeNumberException;
+import exceptions.QuantityExceededException;
+
 public class Product {
 
     private String productName;

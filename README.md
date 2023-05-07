@@ -9,10 +9,10 @@ This repository contains the source code of Integrative Task 2, which consists o
 
 ### Iteration 1
 ```bash
-> Commit: ###
-> Error-failure density: ###
-> Reliability: ###
-> Completeness: ###
+> Commit: 5
+> Error-failure density: 1
+> Reliability: 0
+> Completeness: 0
 ```
 ## ***Authors*** ✒️
 Santiago Escobar León | Juan David Colonia Aldana | Alejandro Amu Garcia

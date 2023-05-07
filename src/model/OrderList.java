@@ -1,17 +1,23 @@
 package model;
 
+import color.Color;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import exceptions.DateFormatException;
 import exceptions.EmptyFileException;
-import exceptions.NegativeNumberException;
+import exceptions.IncompleteDataException;
 
 import java.io.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class OrderList {
 
     static String folder = "database";
-    static String path = "database/orders.txt";
+    static String path = "database/orders.json";
 
     private ArrayList<Order> orders;
     private BinarySearch<Product> binarySearch;
@@ -36,16 +42,24 @@ public class OrderList {
 
     }
 
-    public void show() {
-
-    }
-
-    public String searchOrder(int option, String data) {
+    public String searchOrder(int option, String data, int sortingType, int sortingVariable) {
         return null;
     }
 
-    public String deleteOrder(String buyName) throws IOException {
+    public ArrayList<Order> searchOrderByBuyerName(String buyerName) {
         return null;
+    }
+
+    public ArrayList<Order> searchOrderByTotalPrice(double totalPrice) {
+        return null;
+    }
+
+    public ArrayList<Order> searchProductByPurchasedDate(LocalDate date) {
+        return null;
+    }
+
+    public void sortingResults(ArrayList<Order> list, int sortingType, int sortingVariable) {
+
     }
 
 }

@@ -17,4 +17,8 @@ public class BinarySearch<T> {
         return null;
     }
 
+    public ArrayList<T> searchRangeOrInterval(ArrayList<T> list, Comparator<T> comparator, T minValue, T maxValue, int lowIndex, int highIndex) {
+        return null;
+    }
+
 }
