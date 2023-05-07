@@ -20,7 +20,8 @@ public class ProductList {
     private BinarySearch<Product> binarySearch;
 
     public ProductList() {
-
+        products = new ArrayList<>();
+        binarySearch = new BinarySearch<>();
     }
 
     public ArrayList<Product> getProducts() {
@@ -94,4 +95,5 @@ public class ProductList {
     public boolean hasOnlyLetterOfABC(String text) {
         return false;
     }
+
 }

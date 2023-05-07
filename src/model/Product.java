@@ -14,7 +14,18 @@ public class Product {
     private int purchasedNumber;
 
     public Product(String productName, String description, double price, int quantityAvailable, Category category, int purchasedNumber) {
-
+        if ((productName.equals("")) || (description.equals(""))) {
+            throw new IncompleteDataException();
+        }
+        if((price < 0) || (quantityAvailable < 0) || (purchasedNumber < 0)){
+            throw new NegativeNumberException();
+        }
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.quantityAvailable = quantityAvailable;
+        this.category = category;
+        this.purchasedNumber = purchasedNumber;
     }
 
     public void addQuantityAvailable(int quantity2Add){

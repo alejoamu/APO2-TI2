@@ -24,6 +24,14 @@ public class Controller {
         return getCategory();
     }
 
+    public void loadProductList() throws IOException {
+        productList.load();
+    }
+
+    public void loadOrderList() throws IOException {
+        orderList.load();
+    }
+
     public void addProduct(String[] data) throws IOException {
 
     }

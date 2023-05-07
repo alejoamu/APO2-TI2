@@ -23,7 +23,8 @@ public class OrderList {
     private BinarySearch<Product> binarySearch;
 
     public OrderList() {
-
+        orders = new ArrayList<>();
+        binarySearch = new BinarySearch<>();
     }
 
     public ArrayList<Order> getOrders() {
