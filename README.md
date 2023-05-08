@@ -89,3 +89,8 @@ Santiago Escobar León | Juan David Colonia Aldana | Alejandro Amu Garcia
         <a href="https://www.java.com/es/" target="_blank"> <img alt="Java" src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/java/java-original.svg" height="60" width = "60"></a>
     </p>
 </div>
+
+## ***Recommendations*** 🔴
+Recommend using this project structure
+
+<img src="https://i.ibb.co/f2Twgfc/Proyect-Structure.png" width="800" height="200">
