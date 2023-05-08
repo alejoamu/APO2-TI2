@@ -36,11 +36,41 @@ public class OrderList {
     }
 
     public void save() throws IOException {
+        File file = new File(path);
+        FileOutputStream fos = new FileOutputStream(file);
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+
+        String data = gson.toJson(orders);
+
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+        writer.write(data);
+        writer.flush();
+        fos.close();
     }
 
     public void load() throws IOException {
-
+        File file = new File(path);
+        try {
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                String json = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                Gson gson = new Gson();
+                Order[] array = gson.fromJson(json, Order[].class);
+                orders.addAll(Arrays.asList(array));
+                fis.close();
+            } else {
+                File f = new File(folder);
+                if (!f.exists()) {
+                    f.mkdirs();
+                }
+                file.createNewFile();
+            }
+        } catch (NullPointerException ex) {
+            throw new EmptyFileException();
+        }
     }
 
     public String searchOrder(int option, String data, int sortingType, int sortingVariable) {

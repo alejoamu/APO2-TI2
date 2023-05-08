@@ -33,11 +33,41 @@ public class ProductList {
     }
 
     public void save() throws IOException {
+        File file = new File(path);
+        FileOutputStream fos = new FileOutputStream(file);
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+
+        String data = gson.toJson(products);
+
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+        writer.write(data);
+        writer.flush();
+        fos.close();
     }
 
     public void load() throws IOException {
-
+        File file = new File(path);
+        try {
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                String json = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+                Gson gson = new Gson();
+                Product[] array = gson.fromJson(json, Product[].class);
+                products.addAll(Arrays.asList(array));
+                fis.close();
+            } else {
+                File f = new File(folder);
+                if (!f.exists()) {
+                    f.mkdirs();
+                }
+                file.createNewFile();
+            }
+        } catch (NullPointerException ex) {
+            throw new EmptyFileException();
+        }
     }
 
     public boolean changeQuantity(String product, int quantity) {
