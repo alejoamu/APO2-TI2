@@ -254,15 +254,69 @@ public class ProductList {
     }
 
     public ArrayList<Product> searchProductByPurchasedNumber(int minPurchasedNumber, int maxPurchasedNumber) {
-        return null;
+        // Sort by purchased number ascending
+        Comparator<Product> byPurchasedNumber = (p1, p2) -> Integer.compare(p1.getPurchasedNumber(), p2.getPurchasedNumber());
+        products.sort(byPurchasedNumber);
+        // Search for products within the specified purchased number range using binary search
+        return binarySearch.searchRangeOrInterval(products, byPurchasedNumber, new Product("---", "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, minPurchasedNumber), new Product("---", "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, maxPurchasedNumber), 0, products.size() - 1);
     }
 
     public ArrayList<Product> searchProductByQuantityAvailable(int minQuantityAvailable, int maxQuantityAvailable) {
-        return null;
+        // Sort by quantity available ascending
+        Comparator<Product> byQuantityAvailable = (p1, p2) -> Integer.compare(p1.getQuantityAvailable(), p2.getQuantityAvailable());
+        products.sort(byQuantityAvailable);
+        // Search for products within the specified quantity available range using binary search
+        return binarySearch.searchRangeOrInterval(products, byQuantityAvailable, new Product("---", "---", Double.MAX_VALUE, minQuantityAvailable, Category.BOOKS, Integer.MAX_VALUE), new Product("---", "---", Double.MAX_VALUE, maxQuantityAvailable, Category.BOOKS, Integer.MAX_VALUE), 0, products.size() - 1);
     }
 
     public void sortingResults(ArrayList<Product> list, int sortingType, int sortingVariable) {
-
+        switch (sortingVariable) {
+            case 1:
+                if (sortingType == 1) {
+                    Comparator<Product> byName = (p1, p2) -> p1.getProductName().compareToIgnoreCase(p2.getProductName());
+                    list.sort(byName);
+                } else {
+                    Comparator<Product> byNameDesc = (p1, p2) -> p2.getProductName().compareToIgnoreCase(p1.getProductName());
+                    list.sort(byNameDesc);
+                }
+                break;
+            case 2:
+                if (sortingType == 1) {
+                    Comparator<Product> byPrice = (p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice());
+                    list.sort(byPrice);
+                } else {
+                    Comparator<Product> byPriceDesc = (p1, p2) -> Double.compare(p2.getPrice(), p1.getPrice());
+                    list.sort(byPriceDesc);
+                }
+                break;
+            case 3:
+                if (sortingType == 1) {
+                    Comparator<Product> byQuantityAvailable = (p1, p2) -> Integer.compare(p1.getQuantityAvailable(), p2.getQuantityAvailable());
+                    list.sort(byQuantityAvailable);
+                } else {
+                    Comparator<Product> byQuantityAvailableDesc = (p1, p2) -> Integer.compare(p2.getQuantityAvailable(), p1.getQuantityAvailable());
+                    list.sort(byQuantityAvailableDesc);
+                }
+                break;
+            case 4:
+                if (sortingType == 1) {
+                    Comparator<Product> byCategory = (p1, p2) -> p1.getCategory().compareTo(p2.getCategory());
+                    list.sort(byCategory);
+                } else {
+                    Comparator<Product> byCategoryDesc = (p1, p2) -> p2.getCategory().compareTo(p1.getCategory());
+                    list.sort(byCategoryDesc);
+                }
+                break;
+            case 5:
+                if (sortingType == 1) {
+                    Comparator<Product> byPurchasedNumber = (p1, p2) -> Integer.compare(p1.getPurchasedNumber(), p2.getPurchasedNumber());
+                    list.sort(byPurchasedNumber);
+                } else {
+                    Comparator<Product> byPurchasedNumberDesc = (p1, p2) -> Integer.compare(p2.getPurchasedNumber(), p1.getPurchasedNumber());
+                    list.sort(byPurchasedNumberDesc);
+                }
+                break;
+        }
     }
 
     public boolean hasOnlyLetterOfABC(String text) {

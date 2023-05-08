@@ -124,7 +124,35 @@ public class OrderList {
     }
 
     public void sortingResults(ArrayList<Order> list, int sortingType, int sortingVariable) {
-
+        switch (sortingVariable) {
+            case 1:
+                if (sortingType == 1) {
+                    Comparator<Order> byBuyerName = (o1, o2) -> o1.getBuyerName().compareToIgnoreCase(o2.getBuyerName());
+                    list.sort(byBuyerName);
+                } else {
+                    Comparator<Order> byBuyerNameDesc = (o1, o2) -> o2.getBuyerName().compareToIgnoreCase(o1.getBuyerName());
+                    list.sort(byBuyerNameDesc);
+                }
+                break;
+            case 2:
+                if (sortingType == 1) {
+                    Comparator<Order> byTotalPrice = (o1, o2) -> Double.compare(o1.getTotalPrice(), o2.getTotalPrice());
+                    list.sort(byTotalPrice);
+                } else {
+                    Comparator<Order> byTotalPriceDesc = (o1, o2) -> Double.compare(o2.getTotalPrice(), o1.getTotalPrice());
+                    list.sort(byTotalPriceDesc);
+                }
+                break;
+            case 3:
+                if (sortingType == 1) {
+                    Comparator<Order> byDate = (o1, o2) -> o1.getPurchasedDate().compareTo(o2.getPurchasedDate());
+                    list.sort(byDate);
+                } else {
+                    Comparator<Order> byDateDesc = (o1, o2) -> o2.getPurchasedDate().compareTo(o1.getPurchasedDate());
+                    list.sort(byDateDesc);
+                }
+                break;
+        }
     }
 
 }
