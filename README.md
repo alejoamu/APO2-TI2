@@ -50,6 +50,13 @@ This repository contains the source code of Integrative Task 2, which consists o
 > Reliability: 0.42
 > Completeness: 2.66
 ```
+### Iteration 7
+```bash
+> Commit: 11
+> Error-failure density: 0.51
+> Reliability: 0.49
+> Completeness: 3.11
+```
 ## ***Authors*** ✒️
 Santiago Escobar León | Juan David Colonia Aldana | Alejandro Amu Garcia
 

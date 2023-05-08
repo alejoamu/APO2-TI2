@@ -20,7 +20,7 @@ public class OrderList {
     static String path = "database/orders.json";
 
     private ArrayList<Order> orders;
-    private BinarySearch<Product> binarySearch;
+    private BinarySearch<Order> binarySearch;
 
     public OrderList() {
         orders = new ArrayList<>();
@@ -88,15 +88,39 @@ public class OrderList {
     }
 
     public ArrayList<Order> searchOrderByBuyerName(String buyerName) {
-        return null;
+        // Sort by buyer name ascending
+        Comparator<Order> byBuyerName = (o1, o2) -> o1.getBuyerName().compareToIgnoreCase(o2.getBuyerName());
+        orders.sort(byBuyerName);
+        // Search for orders within the specified buyer name using binary search
+        String products = "---";
+        String[] arrProducts = products.split(",");
+        String productsQuantity = "---";
+        String[] arrProductsQuantity = productsQuantity.split(",");
+        return binarySearch.searchObjectsByProperty(orders, byBuyerName, new Order(buyerName, arrProducts, arrProductsQuantity, Integer.MAX_VALUE, LocalDate.MAX));
     }
 
     public ArrayList<Order> searchOrderByTotalPrice(double totalPrice) {
-        return null;
+        // Sort by price ascending
+        Comparator<Order> byTotalPrice = (o1, o2) -> Double.compare(o1.getTotalPrice(), o2.getTotalPrice());
+        orders.sort(byTotalPrice);
+        // Search for orders with the specified price using binary search
+        String products = "---";
+        String[] arrProducts = products.split(",");
+        String productsQuantity = "---";
+        String[] arrProductsQuantity = productsQuantity.split(",");
+        return binarySearch.searchObjectsByProperty(orders, byTotalPrice, new Order("---", arrProducts, arrProductsQuantity, totalPrice, LocalDate.MAX));
     }
 
     public ArrayList<Order> searchProductByPurchasedDate(LocalDate date) {
-        return null;
+        // Sort by purchase date ascending
+        Comparator<Order> byDate = (o1, o2) -> o1.getPurchasedDate().compareTo(o2.getPurchasedDate());
+        orders.sort(byDate);
+        // Search for orders with the specified date using binary search
+        String products = "---";
+        String[] arrProducts = products.split(",");
+        String productsQuantity = "---";
+        String[] arrProductsQuantity = productsQuantity.split(",");
+        return binarySearch.searchObjectsByProperty(orders, byDate, new Order("---", arrProducts, arrProductsQuantity, Integer.MAX_VALUE, date));
     }
 
     public void sortingResults(ArrayList<Order> list, int sortingType, int sortingVariable) {
