@@ -135,15 +135,122 @@ public class ProductList {
     }
 
     public String searchProduct(int option, String minData, String maxData, int sortingType, int sortingVariable) {
-        return null;
+        StringBuilder msg = new StringBuilder();
+        switch (option) {
+            case 1:
+                ArrayList<Product> productsFoundName;
+                if (hasOnlyLetterOfABC(minData) && hasOnlyLetterOfABC(maxData)) {
+                    if (minData.compareTo(maxData) < 0) {
+                        productsFoundName = searchProductByName(minData, maxData);
+                    } else if (minData.compareTo(maxData) > 0) {
+                        productsFoundName = searchProductByName(maxData, minData);
+                    } else {
+                        productsFoundName = searchProductByName(minData, maxData);
+                    }
+                    if (productsFoundName != null) {
+                        sortingResults(productsFoundName, sortingType, sortingVariable);
+                        for (Product p : productsFoundName) {
+                            msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                        }
+                    }
+                }
+                break;
+            case 2:
+                double priceMin, priceMax;
+                try {
+                    priceMin = Double.parseDouble(minData);
+                    priceMax = Double.parseDouble(maxData);
+                } catch (NumberFormatException ex) {
+                    throw new IncompleteDataException();
+                }
+                ArrayList<Product> productsFoundPrice;
+                if (priceMin < priceMax) {
+                    productsFoundPrice = searchProductByPrice(priceMin, priceMax);
+                } else if (priceMin > priceMax) {
+                    productsFoundPrice = searchProductByPrice(priceMax, priceMin);
+                } else {
+                    productsFoundPrice = searchProductByPrice(priceMax);
+                }
+                sortingResults(productsFoundPrice, sortingType, sortingVariable);
+                for (Product p : productsFoundPrice) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+            case 4:
+                int minPurchasedNumber, maxPurchasedNumber;
+                try {
+                    minPurchasedNumber = Integer.parseInt(minData);
+                    maxPurchasedNumber = Integer.parseInt(maxData);
+                } catch (NumberFormatException ex) {
+                    throw new IncompleteDataException();
+                }
+                ArrayList<Product> productsFoundPurchasedNumber;
+                if (minPurchasedNumber < maxPurchasedNumber) {
+                    productsFoundPurchasedNumber = searchProductByPurchasedNumber(minPurchasedNumber, maxPurchasedNumber);
+                } else if (minPurchasedNumber > maxPurchasedNumber) {
+                    productsFoundPurchasedNumber = searchProductByPurchasedNumber(maxPurchasedNumber, minPurchasedNumber);
+                } else {
+                    productsFoundPurchasedNumber = searchProductByPurchasedNumber(maxPurchasedNumber);
+                }
+                sortingResults(productsFoundPurchasedNumber, sortingType, sortingVariable);
+                for (Product p : productsFoundPurchasedNumber) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+            case 5:
+                int minQuantityAvailable, maxQuantityAvailable;
+                try {
+                    minQuantityAvailable = Integer.parseInt(minData);
+                    maxQuantityAvailable = Integer.parseInt(maxData);
+                } catch (NumberFormatException ex) {
+                    throw new IncompleteDataException();
+                }
+                ArrayList<Product> productsFoundQuantityAvailable;
+                if (minQuantityAvailable < maxQuantityAvailable) {
+                    productsFoundQuantityAvailable = searchProductByQuantityAvailable(minQuantityAvailable, maxQuantityAvailable);
+                } else if (minQuantityAvailable > maxQuantityAvailable) {
+                    productsFoundQuantityAvailable = searchProductByQuantityAvailable(maxQuantityAvailable, minQuantityAvailable);
+                } else {
+                    productsFoundQuantityAvailable = searchProductByQuantityAvailable(maxQuantityAvailable);
+                }
+                sortingResults(productsFoundQuantityAvailable, sortingType, sortingVariable);
+                for (Product p : productsFoundQuantityAvailable) {
+                    msg.append(String.format("Product: %s Description: %s Price: %.2f Quantity Available: %d Category: %s Purchased Number: %d", p.getProductName(), p.getDescription(), p.getPrice(), p.getQuantityAvailable(), p.getCategory(), p.getPurchasedNumber())).append("\n");
+                }
+                break;
+        }
+        if (msg.length() == 0) {
+            return Color.BOLD + Color.YELLOW + "              NO PRODUCT HAS THAT CHARACTERISTIC               \n" + Color.RESET;
+        }
+        return msg.toString();
     }
 
     public ArrayList<Product> searchProductByName(String initialPrefix, String finalPrefix) {
-        return null;
+        // Sort by name ascending
+        Comparator<Product> byName = (p1, p2) -> p1.getProductName().compareToIgnoreCase(p2.getProductName());
+        products.sort(byName);
+
+        // Convert initialPrefix and finalPrefix to lowercase
+        initialPrefix = initialPrefix.toLowerCase();
+        finalPrefix = finalPrefix.toLowerCase();
+
+        // Convert finalPrefix to ASCII and increment by 1
+        int asciiValue = (int) finalPrefix.charAt(0);
+        asciiValue += 1;
+
+        // Convert back to String
+        finalPrefix = String.valueOf((char) asciiValue);
+
+        // Search for products within the specified name interval using binary search
+        return binarySearch.searchRangeOrInterval(products, byName, new Product(initialPrefix, "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE), new Product(finalPrefix, "---", Double.MAX_VALUE, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE), 0, products.size() - 1);
     }
 
     public ArrayList<Product> searchProductByPrice(double minPrice, double maxPrice) {
-        return null;
+        // Sort by price ascending
+        Comparator<Product> byPrice = (p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice());
+        products.sort(byPrice);
+        // Search for products within the specified price range using binary search
+        return binarySearch.searchRangeOrInterval(products, byPrice, new Product("---", "---", minPrice, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE), new Product("---", "---", maxPrice, Integer.MAX_VALUE, Category.BOOKS, Integer.MAX_VALUE), 0, products.size() - 1);
     }
 
     public ArrayList<Product> searchProductByPurchasedNumber(int minPurchasedNumber, int maxPurchasedNumber) {
@@ -159,7 +266,7 @@ public class ProductList {
     }
 
     public boolean hasOnlyLetterOfABC(String text) {
-        return false;
+        return text.matches("[a-zA-Z]+");
     }
 
 }
