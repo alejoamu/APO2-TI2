@@ -71,7 +71,13 @@ public class ProductList {
     }
 
     public boolean changeQuantity(String product, int quantity) {
-        return false;
+        Product result = searchProductByName(product);
+        if (result == null) {
+            return false;
+        } else {
+            result.addQuantityAvailable(quantity);
+            return true;
+        }
     }
 
     public String searchProduct(int option, String data, int sortingType, int sortingVariable) {
